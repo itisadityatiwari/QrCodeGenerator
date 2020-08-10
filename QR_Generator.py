@@ -1,14 +1,20 @@
 import pyqrcode as qr
 import cv2 as cv
 from pyqrcode import QRCode
+import validators
 
-Website_Name=input("Enter your website URL:")
+def url_validator():
+    Website_url=validators.url(input("Enter Your URL:"))
+    if Website_url==True:
+        link = qr.create(Website_url)
 
-link= qr.create(Website_Name)
+        link.png('qr_code.png', scale=8)
 
-link.png('qr_code.png',scale=8)
-
-img = cv.imread('qr_code.png',0)
-cv.imshow('image',img)
-cv.waitKey(0)
-
+        img = cv.imread('qr_code.png', 0)
+        cv.imshow('image', img)
+        cv.waitKey(0)
+        exit()
+    else:
+        print("Your input was Invalid")
+        url_validator()
+url_validator()
